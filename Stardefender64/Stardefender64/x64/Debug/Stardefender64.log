@@ -1,0 +1,5 @@
+﻿  Stardefender64.cpp
+C:\Users\jamaf\source\repos\Stardefender64\Stardefender64\Stardefender64.cpp(39,58): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Stardefender64.vcxproj -> C:\Users\jamaf\source\repos\Stardefender64\x64\Debug\Stardefender64.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
