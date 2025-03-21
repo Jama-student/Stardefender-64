@@ -30,7 +30,7 @@ Balloon balloons[MAX_BALLOONS];
 Tower towers[MAX_TOWERS];
 Projectile projectiles[MAX_PROJECTILES];
 
-Vector2 target = { SCREEN_WIDTH - 50, SCREEN_HEIGHT / 2 }; // End goal
+Vector2 target = { SCREEN_WIDTH - 50, SCREEN_HEIGHT / 2 };
 int score = 0, lives = 3, wave = 1;
 
 void SpawnBalloon() {
@@ -57,7 +57,6 @@ void SpawnProjectile(Vector2 start, Vector2 direction) {
 }
 
 void UpdateGame() {
-    // Update Balloons
     for (int i = 0; i < MAX_BALLOONS; i++) {
         if (balloons[i].active) {
             Vector2 diff = { target.x - balloons[i].position.x, target.y - balloons[i].position.y };
@@ -67,14 +66,13 @@ void UpdateGame() {
             balloons[i].position.x += direction.x * balloons[i].speed;
             balloons[i].position.y += direction.y * balloons[i].speed;
 
-            if (length < 10) { // Reached target
+            if (length < 10) {
                 balloons[i].active = false;
                 lives--;
             }
         }
     }
 
-    // Update Projectiles
     for (int i = 0; i < MAX_PROJECTILES; i++) {
         if (projectiles[i].active) {
             projectiles[i].position.x += projectiles[i].direction.x * projectiles[i].speed;
@@ -87,14 +85,13 @@ void UpdateGame() {
         }
     }
 
-    // Check for collisions
     for (int i = 0; i < MAX_PROJECTILES; i++) {
         if (projectiles[i].active) {
             for (int j = 0; j < MAX_BALLOONS; j++) {
                 if (balloons[j].active) {
                     float dist = sqrtf(powf(projectiles[i].position.x - balloons[j].position.x, 2) +
                         powf(projectiles[i].position.y - balloons[j].position.y, 2));
-                    if (dist < 10) { // Hit
+                    if (dist < 10) {
                         projectiles[i].active = false;
                         balloons[j].active = false;
                         score += 10;
@@ -104,14 +101,13 @@ void UpdateGame() {
         }
     }
 
-    // Tower Shooting
     for (int i = 0; i < MAX_TOWERS; i++) {
         if (towers[i].active) {
             for (int j = 0; j < MAX_BALLOONS; j++) {
                 if (balloons[j].active) {
                     Vector2 diff = { balloons[j].position.x - towers[i].position.x, balloons[j].position.y - towers[i].position.y };
                     float length = sqrtf(diff.x * diff.x + diff.y * diff.y);
-                    if (length < 100) { // Tower range
+                    if (length < 100) {
                         Vector2 direction = { diff.x / length, diff.y / length };
                         SpawnProjectile(towers[i].position, direction);
                         break;
@@ -126,7 +122,6 @@ void DrawGame() {
     BeginDrawing();
     ClearBackground(SKYBLUE);
 
-    // Draw path
     DrawRectangle(100, 0, 100, SCREEN_HEIGHT, DARKGRAY);
     DrawRectangle(600, 0, 100, SCREEN_HEIGHT, DARKGRAY);
 
